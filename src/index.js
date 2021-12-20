@@ -1,18 +1,18 @@
-const $app = document.querySelector("#app");
+const $app = document.querySelector('#app');
 
 let state = {
-  items: ["item1", "item2", "item3", "item4"]
+  items: ['item1', 'item2', 'item3', 'item4'],
 };
 
 const render = () => {
   const { items } = state;
   $app.innerHTML = `
     <ul>
-      ${items.map((item) => `<li>${item}</li>`).join("")}
+      ${items.map((item) => `<li>${item}</li>`).join('')}
     </ul>
     <button id="append">추가</button>
   `;
-  document.querySelector("#append").addEventListener("click", () => {
+  document.querySelector('#append').addEventListener('click', () => {
     setState({ items: [...items, `item${items.length + 1}`] });
   });
 };
