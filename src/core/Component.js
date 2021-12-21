@@ -1,8 +1,11 @@
 export default class Component {
   $target;
+  $props;
   $state;
+
   constructor($target) {
     this.$target = $target;
+    this.$props = $props; // $props 할당
     this.setup();
     this.setEvent(); // 이벤트 버블링 등록
     this.render();
@@ -10,12 +13,15 @@ export default class Component {
 
   setup() {}
 
+  mounted() {}
+
   template() {
     return '';
   }
 
   render() {
     this.$target.innerHTML = this.template();
+    this.mounted(); // render 후에 mounted가 실행 된다.
   }
 
   setEvent() {}
