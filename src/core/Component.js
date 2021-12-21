@@ -4,6 +4,7 @@ export default class Component {
   constructor($target) {
     this.$target = $target;
     this.setup();
+    this.setEvent(); // 이벤트 버블링 등록
     this.render();
   }
   setup() {}
@@ -12,11 +13,11 @@ export default class Component {
   }
   render() {
     this.$target.innerHTML = this.template();
-    this.setEvent();
-    // render을 사용할때마다 새로 이벤트를 등록한다
-    // 뿐만 아니라 반복적인 요소에 대해 각각 이벤트를 등록해야 할 땐 여간 불편한게 아니다.
   }
   setEvent() {}
+  // event를 각각의 하위 요소가 아니라 component의 target 자체에 등록하는 것이다.
+  // 따라서 component가 생성되는 시점에만 이벤트 등록을 해놓으면 추가로 등록할 필요가 없어진다.
+
   setState(newState) {
     this.$state = { ...this.$state, ...newState };
     this.render();
