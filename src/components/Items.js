@@ -1,16 +1,16 @@
-import Component from './component/Component.js';
+import Component from '../core/Component.js';
 
-class App extends Component {
+export default class Items extends Component {
   setup() {
     this.$state = { items: ['item1', 'item2'] };
   }
   template() {
     const { items } = this.$state;
     return `
-        <ul>
-          ${items.map((item) => `<li>${item}</li>`).join('')}
-        </ul>
-        <button>추가</button>
+      <ul>
+        ${items.map((item) => `<li>${item}</li>`).join('')}
+      </ul>
+      <button>추가</button>
     `;
   }
 
@@ -18,8 +18,7 @@ class App extends Component {
     this.$target.querySelector('button').addEventListener('click', () => {
       const { items } = this.$state;
       this.setState({ items: [...items, `item${items.length + 1}`] });
+      //setState를 하면 Component에서 state를 변경하고 render한다
     });
   }
 }
-
-new App(document.querySelector('#app'));
