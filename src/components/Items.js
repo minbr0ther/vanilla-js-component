@@ -18,7 +18,7 @@ export default class Items extends Component {
     this.$state = {
       isFilter: 0,
       items: [
-        { seq: 1, contents: 'item1', active: false },
+        { seq: 1, conteㅎnts: 'item1', active: false },
         { seq: 2, contents: 'item2', active: true },
       ],
     };
