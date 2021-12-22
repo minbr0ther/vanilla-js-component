@@ -30,6 +30,9 @@ export default class Component {
 
   setState(newState) {
     this.$state = { ...this.$state, ...newState };
+
+    localStorage.setItem('database', JSON.stringify(this.$state));
+
     this.render();
   }
 

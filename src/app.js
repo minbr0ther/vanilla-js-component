@@ -5,21 +5,30 @@ import ItemFilter from './components/ItemFilter.js';
 
 export default class App extends Component {
   setup() {
-    this.$state = {
-      isFilter: 0,
-      items: [
-        {
-          seq: 1,
-          contents: 'item1',
-          active: false,
-        },
-        {
-          seq: 2,
-          contents: 'item2',
-          active: true,
-        },
-      ],
-    };
+    this.init();
+    this.$state = JSON.parse(localStorage.getItem('database'));
+  }
+
+  init() {
+    JSON.parse(localStorage.getItem('database')) ||
+      localStorage.setItem(
+        'database',
+        JSON.stringify({
+          isFilter: 0,
+          items: [
+            {
+              seq: 1,
+              contents: 'item1',
+              active: false,
+            },
+            {
+              seq: 2,
+              contents: 'item2',
+              active: true,
+            },
+          ],
+        })
+      );
   }
 
   template() {
@@ -94,6 +103,7 @@ export default class App extends Component {
   toggleItem(seq) {
     const items = [...this.$state.items];
     const index = items.findIndex((v) => v.seq === seq);
+
     items[index].active = !items[index].active;
 
     this.setState({ items });
