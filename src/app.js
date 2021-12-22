@@ -8,21 +8,29 @@ export default class App extends Component {
     this.$state = {
       isFilter: 0,
       items: [
-        { seq: 1, conteㅎnts: 'item1', active: false },
-        { seq: 2, contents: 'item2', active: true },
+        {
+          seq: 1,
+          contents: 'item1',
+          active: false,
+        },
+        {
+          seq: 2,
+          contents: 'item2',
+          active: true,
+        },
       ],
     };
   }
 
   template() {
-    return /*html*/ `
+    return `
       <header data-component="item-appender"></header>
       <main data-component="items"></main>
       <footer data-component="item-filter"></footer>
     `;
   }
 
-  // mounted에서 자식 컴포넌트를 마운트 해줘야 한다
+  // mounted에서 자식 컴포넌트를 마운트 해줘야 한다.
   mounted() {
     const { filteredItems, addItem, deleteItem, toggleItem, filterItem } = this;
 
@@ -36,14 +44,20 @@ export default class App extends Component {
 
     // 하나의 객체에서 사용하는 메소드를 넘겨줄 bind를 사용하여 this를 변경하거나,
     // 다음과 같이 새로운 함수를 만들어줘야 한다.
-    // ex) { addItem : contents => addItem(contents)}
-    new ItemAppender($itemAppender, { addItem: addItem.bind(this) });
+    // ex) { addItem: contents => addItem(contents) }
+    new ItemAppender($itemAppender, {
+      addItem: addItem.bind(this),
+    });
+
     new Items($items, {
       filteredItems,
       deleteItem: deleteItem.bind(this),
       toggleItem: toggleItem.bind(this),
     });
-    new ItemFilter($itemFilter, { filterItem: filterItem.bind(this) });
+
+    new ItemFilter($itemFilter, {
+      filterItem: filterItem.bind(this),
+    });
   }
 
   get filteredItems() {
@@ -68,8 +82,6 @@ export default class App extends Component {
   }
 
   deleteItem(seq) {
-    if (!window.confirm('정말 삭제하시겠습니까?')) return;
-
     const items = [...this.$state.items];
     items.splice(
       items.findIndex((v) => v.seq === seq),
@@ -82,7 +94,6 @@ export default class App extends Component {
   toggleItem(seq) {
     const items = [...this.$state.items];
     const index = items.findIndex((v) => v.seq === seq);
-
     items[index].active = !items[index].active;
 
     this.setState({ items });
